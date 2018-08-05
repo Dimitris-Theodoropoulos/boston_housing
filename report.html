@@ -11841,8 +11841,6 @@ div#notebook {
 <div class="output_subarea output_stream output_stderr output_text">
 <pre>/anaconda2/lib/python2.7/site-packages/sklearn/cross_validation.py:41: DeprecationWarning: This module was deprecated in version 0.18 in favor of the model_selection module into which all the refactored classes and functions are moved. Also note that the interface of the new CV iterators are different from that of this module. This module will be removed in 0.20.
   &#34;This module will be removed in 0.20.&#34;, DeprecationWarning)
-/anaconda2/lib/python2.7/site-packages/sklearn/learning_curve.py:22: DeprecationWarning: This module was deprecated in version 0.18 in favor of the model_selection module into which all the functions are moved. This module will be removed in 0.20
-  DeprecationWarning)
 </pre>
 </div>
 </div>
@@ -11854,6 +11852,18 @@ div#notebook {
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Boston housing dataset has 489 data points with 4 variables each.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/anaconda2/lib/python2.7/site-packages/sklearn/learning_curve.py:22: DeprecationWarning: This module was deprecated in version 0.18 in favor of the model_selection module into which all the functions are moved. This module will be removed in 0.20
+  DeprecationWarning)
 </pre>
 </div>
 </div>
@@ -11890,23 +11900,23 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Minimum price of the data</span>
-<span class="n">minimum_price</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+<span class="n">minimum_price</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
 
 <span class="c1"># TODO: Maximum price of the data</span>
-<span class="n">maximum_price</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="n">maximum_price</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
 
 <span class="c1"># TODO: Mean price of the data</span>
-<span class="n">mean_price</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">mean_price</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
 
 <span class="c1"># TODO: Median price of the data</span>
-<span class="n">median_price</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+<span class="n">median_price</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
 
 <span class="c1"># TODO: Standard deviation of prices of the data</span>
-<span class="n">std_price</span> <span class="o">=</span> <span class="n">prices</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+<span class="n">std_price</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span>
 
 <span class="c1"># Show the calculated statistics</span>
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Statistics for Boston housing dataset:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -11937,7 +11947,7 @@ Minimum price: $105000.0
 Maximum price: $1024800.0
 Mean price: $454342.944785
 Median price $438900.0
-Standard deviation of prices: $165340.277653
+Standard deviation of prices: $165171.131544
 </pre>
 </div>
 </div>
@@ -12008,7 +12018,7 @@ Standard deviation of prices: $165340.277653
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Import &#39;r2_score&#39;</span>
@@ -12127,6 +12137,25 @@ Standard deviation of prices: $165340.277653
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong>
 This model seems to successfully captures the target variable, because based on the R^2 score the target variable can be predicted by 92.3% from the independent variable.</p>
+<p>Explaination:</p>
+<p>define:</p>
+
+<pre><code>- Ym = mean of the observed data
+- Yi = true values
+- Fi = predicted value
+- SST = total sum of squares (Yi - Ym)^2
+- SSR = sum of squared errors (Yi - Fi)^2
+
+</code></pre>
+<p>FRACTION OF UNEXPLAINED VARIANCE = SSR / SST, variance of the model's errors divided by total variance (FVU)</p>
+<p>R2 = 1 - FVU, the substitution of 1 with the proportion of unexplained variance</p>
+<p>in our case:</p>
+
+<pre><code>- R2 = 0.923, so:
+
+-&gt; 0.923 = 1 - FVU
+-&gt; FVU = 1 - 0.923
+-&gt; FVU = 0.077, low value, which indicates the proportion of the unexplained variance of our model. So we can conclude that our model indeed captured the most of the explained variance, so it was a good fit!</code></pre>
 
 </div>
 </div>
@@ -12411,8 +12440,8 @@ Adding more training samples would just increase the training time without any g
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong></p>
-<p>The grid search technique is a technique that uses the brute-force exhaustive search paradigm, where we specify a list of values for different hyperparameters (the term grid refers to this step, like a grid in board games), and the computer evaluates the model performance for each combination of those to obtain the optimal combination of values from this set.</p>
-<p>Applying the grid search technique to a learner we can get the parameters of the estimator who scored best, in other words the optimal learning algorithm.</p>
+<p>The grid search technique is a technique that uses the brute-force exhaustive search paradigm, where we specify a list of values for different hyper-parameters (the term grid refers to this step, like a grid in board games), and the computer evaluates the model performance for each combination of those to obtain the optimal combination of values from this set.</p>
+<p>Applying the grid search technique to a learner we can get the hyper-parameters of the estimator who scored best, in other words the optimal learning algorithm, the one though from the specified grid, not the general optimal. Grid search applies to the hyper-parameters of an estimator, e.g. the number of neighbors in KNN or the max_depth of the tree in a decision tree algorithm, not to the attributes of the estimator, e.g feature_importances_ of the tree, etc.</p>
 <p>A full example of a grid search appliance:</p>
 <p>tree_grid = {'max_depth': [3, 5, 7, 10],
              'min_samples_split': range(2, 11),
